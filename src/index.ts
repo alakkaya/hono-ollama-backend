@@ -7,6 +7,10 @@ app.get('/', (c) => {
   return c.text('Hello Hono!')
 })
 
+app.post('/generate', (c) => {
+  return c.json({ message: 'Generate' })
+})
+
 const port = 3000
 console.log(`Server is running on port ${port}`)
 
