@@ -42,12 +42,15 @@ async function writeMessageHistory(history: MessageHistory): Promise<void> {
 app.get('/', (c) => {
     return c.text('Hello Hono!')
 })
+app.get('/message-history', async(c) => {
+  const messageHistory = await readMessageHistory()
+  return c.json(messageHistory)
+})
 
 app.post('/generate', async (c) => {
     const messageHistory = await readMessageHistory()
     const body = await c.req.json()
     const prompt = body.prompt as string
-
     messageHistory.push({ role: 'user', content: prompt })
 
     const response = await ollama.chat({
